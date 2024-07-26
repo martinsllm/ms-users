@@ -6,6 +6,7 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiBearerAuth,
+  ApiNotFoundResponse,
 } from '@nestjs/swagger';
 
 export function ApiDocGenericPatch(
@@ -21,6 +22,7 @@ export function ApiDocGenericPatch(
       type: modelResponse,
     }),
     ApiBadRequestResponse({ description: 'Bad Request' }),
+    ApiNotFoundResponse({ description: 'Not Found' }),
     ApiForbiddenResponse({ description: 'Access Denied.' }),
     ApiBearerAuth('JWT'),
   );

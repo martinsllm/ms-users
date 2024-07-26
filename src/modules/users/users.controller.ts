@@ -16,6 +16,7 @@ import {
   ApiDocGenericPatch,
   ApiDocGenericGetAll,
   ApiDocGenericDelete,
+  ApiDocGenericGetOne,
 } from 'src/app/common';
 
 @ApiTags('Users')
@@ -30,9 +31,15 @@ export class UsersController {
   }
 
   @Get()
-  @ApiDocGenericGetAll('user', [])
+  @ApiDocGenericGetAll('user', CreateUserDto)
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @Get(':id')
+  @ApiDocGenericGetOne('user', CreateUserDto)
+  findOne(@Param('id') id: string) {
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id')

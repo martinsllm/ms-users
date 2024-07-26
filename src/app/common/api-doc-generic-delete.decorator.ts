@@ -19,6 +19,7 @@ export function ApiDocGenericDelete(value: string) {
     ApiNotFoundResponse({
       description: `The ${value} not found`,
     }),
+    ApiNotFoundResponse({ description: 'Not Found' }),
     ApiBearerAuth('JWT'),
   );
 }

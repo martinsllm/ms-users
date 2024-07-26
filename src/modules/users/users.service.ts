@@ -14,6 +14,10 @@ export class UsersService {
     return this.repository.findAll();
   }
 
+  findOne(id: string) {
+    return this.repository.findOne(id);
+  }
+
   update(id: string, data: UpdateUserDto) {
     return this.repository.updateById(id, data);
   }
