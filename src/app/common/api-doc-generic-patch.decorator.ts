@@ -22,7 +22,9 @@ export function ApiDocGenericPatch(
       type: modelResponse,
     }),
     ApiBadRequestResponse({ description: 'Bad Request' }),
-    ApiNotFoundResponse({ description: 'Not Found' }),
+    ApiNotFoundResponse({
+      description: `The ${value} not found`,
+    }),
     ApiForbiddenResponse({ description: 'Access Denied.' }),
     ApiBearerAuth('JWT'),
   );

@@ -14,7 +14,9 @@ export function ApiDocGenericGetOne(value: string, modelType: any) {
       type: modelType,
     }),
     ApiForbiddenResponse({ description: 'Access Denied' }),
-    ApiNotFoundResponse({ description: 'Not Found' }),
+    ApiNotFoundResponse({
+      description: `The ${value} not found`,
+    }),
     ApiOperation({ summary: `Return the ${value} by id` }),
     ApiBearerAuth('JWT'),
   );
