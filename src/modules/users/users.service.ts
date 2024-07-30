@@ -2,27 +2,35 @@ import { Injectable } from '@nestjs/common';
 import { UsersRepository } from './repositories/users.repository';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { PubSubService } from '../global/pubsub/pubsub.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly repository: UsersRepository) {}
-  create(user: CreateUserDto) {
-    return this.repository.create(user);
+  constructor(
+    private readonly repository: UsersRepository,
+    private readonly pubSubService: PubSubService,
+  ) {}
+  async create(user: CreateUserDto) {
+    const userCreated = await this.repository.create(user);
+
+    await this.pubSubService.publish('user-created', userCreated, 'users');
+
+    return userCreated;
   }
 
-  findAll() {
-    return this.repository.findAll();
+  async findAll() {
+    return await this.repository.findAll();
   }
 
-  findOne(id: string) {
-    return this.repository.findOne(id);
+  async findOne(id: string) {
+    return await this.repository.findOne(id);
   }
 
-  update(id: string, data: UpdateUserDto) {
-    return this.repository.updateById(id, data);
+  async update(id: string, data: UpdateUserDto) {
+    return await this.repository.updateById(id, data);
   }
 
-  delete(id: string) {
-    return this.repository.deleteById(id);
+  async delete(id: string) {
+    return await this.repository.deleteById(id);
   }
 }
